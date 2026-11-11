@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terceira Geração da Computação & Transição Tecnológica</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Configuração do Tailwind -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            retro: {
+              bg: '#0B0F19',
+              card: '#111827',
+              border: '#1F2937',
+              accent: '#3B82F6',
+              green: '#10B981',
+              amber: '#F59E0B',
+              pink: '#EC4899',
+              crt: '#33FF33'
+            }
+          },
+          fontFamily: {
+            mono: ['Fira Code', 'Courier New', 'monospace'],
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Estilos Customizados -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Ícones Lucide -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-retro-bg text-gray-100 font-sans min-h-screen selection:bg-blue-600 selection:text-white transition-colors duration-300">
+
+  <!-- Efeito Scanline CRT (Ativável) -->
+  <div id="crt-overlay" class="pointer-events-none fixed inset-0 z-50 opacity-0 transition-opacity duration-300"></div>
+
+  <!-- Navegação Fixa -->
+  <header class="sticky top-0 z-40 border-b border-gray-800 bg-retro-bg/90 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="p-2 bg-blue-600/20 text-blue-400 rounded-lg border border-blue-500/30">
+          <i data-lucide="cpu" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-lg leading-tight bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">GEN-3 ARCHIVE</h1>
+          <p class="text-xs text-gray-400">1964 — 1977 • A Era dos Circuitos Integrados & Microprocessadores</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-3">
+        <button id="btn-crt" onclick="toggleCRT()" class="flex items-center space-x-2 px-3 py-1.5 rounded-lg border border-gray-700 bg-gray-800/60 hover:bg-gray-700 text-xs text-gray-300 transition" title="Alternar modo monitor CRT retrô">
+          <i data-lucide="monitor" class="w-4 h-4 text-emerald-400"></i>
+          <span class="hidden sm:inline">Modo CRT</span>
+        </button>
+        <a href="#terminal-section" class="flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-xs font-semibold text-white shadow-lg shadow-blue-500/20 transition">
+          <i data-lucide="terminal" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">Terminal CLI</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-b border-gray-800/80">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-blue-900/40 text-blue-300 border border-blue-700/50 mb-4">
+        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> História Interativa da Computação
+      </span>
+      <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
+        A Revolução dos <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">Circuitos Integrados</span>
+      </h2>
+      <p class="text-gray-400 text-sm sm:text-base leading-relaxed mb-6">
+        Explore em ordem cronológica exata os 14 marcos fundamentais da Terceira Geração da Computação — dos computadores mainframe em mini-escala às linguagens orientadas a objetos, surgimento do microprocessador e fundação das gigantes do Vale do Silício.
+      </p>
+
+      <!-- Desenvolvedores do Site -->
+      <div class="bg-retro-card p-4 rounded-xl border border-gray-800 max-w-3xl mx-auto">
+        <h3 class="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-3 flex items-center justify-center gap-1.5">
+          <i data-lucide="code" class="w-4 h-4 text-blue-400"></i> Projeto Desenvolvido Por
+        </h3>
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs font-mono">
+          <div class="bg-gray-900/80 p-2 rounded border border-gray-800 text-blue-300">Danilo Grigolli</div>
+          <div class="bg-gray-900/80 p-2 rounded border border-gray-800 text-indigo-300">Monique Sanches</div>
+          <div class="bg-gray-900/80 p-2 rounded border border-gray-800 text-purple-300">Ana Beatriz Silva</div>
+          <div class="bg-gray-900/80 p-2 rounded border border-gray-800 text-emerald-300">Ana Moya</div>
+          <div class="bg-gray-900/80 p-2 rounded border border-gray-800 text-pink-300">Verônica Brisola</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controles de Busca e Filtro -->
+    <div class="mt-8 flex flex-col md:flex-row items-center justify-between gap-4 bg-retro-card p-4 rounded-xl border border-gray-800">
+      <!-- Pesquisa -->
+      <div class="relative w-full md:w-80">
+        <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500"></i>
+        <input type="text" id="search-input" onkeyup="filterEvents()" placeholder="Buscar por ano, nome ou tecnologia..." class="w-full bg-gray-900 border border-gray-700 rounded-lg pl-9 pr-4 py-2 text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-blue-500 transition">
+      </div>
+
+      <!-- Botões de Categoria -->
+      <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+        <button onclick="setCategory('all')" class="cat-btn active px-3 py-1.5 rounded-lg text-xs font-medium bg-blue-600 text-white transition">Todos (14)</button>
+        <button onclick="setCategory('hardware')" class="cat-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-800 hover:bg-gray-700 text-gray-300 transition">Hardware & Chips</button>
+        <button onclick="setCategory('software')" class="cat-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-800 hover:bg-gray-700 text-gray-300 transition">Software & Conceitos</button>
+        <button onclick="setCategory('empresas')" class="cat-btn px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-800 hover:bg-gray-700 text-gray-300 transition">Empresas & PCs</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Linha do Tempo Cronológica -->
+  <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="relative border-l-2 border-gray-800 ml-4 sm:ml-32 space-y-10" id="timeline-container">
+      <!-- Os 14 cartões da linha do tempo são renderizados via JavaScript -->
+    </div>
+  </section>
+
+  <!-- Comparador Técnico de Chips -->
+  <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-gray-800">
+    <div class="mb-8">
+      <h3 class="text-xl font-bold text-white flex items-center gap-2">
+        <i data-lucide="layers" class="text-indigo-400"></i> Comparativo Técnico de Eras (1971 vs 1977 vs Atualidade)
+      </h3>
+      <p class="text-xs text-gray-400 mt-1">Veja a evolução drástica do poder computacional nascida na Terceira Geração.</p>
+    </div>
+
+    <div class="overflow-x-auto rounded-xl border border-gray-800 bg-retro-card">
+      <table class="w-full text-left text-sm text-gray-300">
+        <thead class="bg-gray-900/80 text-xs uppercase text-gray-400 border-b border-gray-800">
+          <tr>
+            <th class="py-3.5 px-4 font-semibold">Especificação</th>
+            <th class="py-3.5 px-4 font-semibold text-blue-400">Intel 4004 (1971)</th>
+            <th class="py-3.5 px-4 font-semibold text-amber-400">MOS 6502 / Apple II (1977)</th>
+            <th class="py-3.5 px-4 font-semibold text-purple-400">Processador Moderno (Hoje)</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-800/60 font-mono text-xs">
+          <tr class="hover:bg-gray-800/30">
+            <td class="py-3 px-4 font-sans font-medium text-gray-200">Transistores</td>
+            <td class="py-3 px-4">2.300</td>
+            <td class="py-3 px-4">3.510</td>
+            <td class="py-3 px-4 text-emerald-400">+90 a 100 Bilhões</td>
+          </tr>
+          <tr class="hover:bg-gray-800/30">
+            <td class="py-3 px-4 font-sans font-medium text-gray-200">Frequência de Clock</td>
+            <td class="py-3 px-4">740 KHz (0,74 MHz)</td>
+            <td class="py-3 px-4">1,023 MHz</td>
+            <td class="py-3 px-4 text-emerald-400"> Até 5.500 MHz (5.5 GHz)</td>
+          </tr>
+          <tr class="hover:bg-gray-800/30">
+            <td class="py-3 px-4 font-sans font-medium text-gray-200">Largura de Barramento</td>
+            <td class="py-3 px-4">4 bits</td>
+            <td class="py-3 px-4">8 bits</td>
+            <td class="py-3 px-4 text-emerald-400">64 bits</td>
+          </tr>
+          <tr class="hover:bg-gray-800/30">
+            <td class="py-3 px-4 font-sans font-medium text-gray-200">Litografia (Tamanho)</td>
+            <td class="py-3 px-4">10.000 nm (10 µm)</td>
+            <td class="py-3 px-4">8.000 nm (8 µm)</td>
+            <td class="py-3 px-4 text-emerald-400">3 nm</td>
+          </tr>
+          <tr class="hover:bg-gray-800/30">
+            <td class="py-3 px-4 font-sans font-medium text-gray-200">Memória Suportada Max</td>
+            <td class="py-3 px-4">4 KB</td>
+            <td class="py-3 px-4">64 KB</td>
+            <td class="py-3 px-4 text-emerald-400"> Até 128 GB RAM</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Terminal CLI Retrô & Quiz -->
+  <section id="terminal-section" class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-gray-800">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <!-- Terminal Simulator -->
+      <div class="lg:col-span-2 bg-black border border-gray-800 rounded-xl overflow-hidden shadow-2xl">
+        <div class="bg-gray-900 px-4 py-2.5 border-b border-gray-800 flex items-center justify-between">
+          <div class="flex items-center space-x-2">
+            <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+            <span class="text-xs font-mono text-gray-400 ml-2">GEN3-OS v1.977 (tty1)</span>
+          </div>
+          <span class="text-[10px] text-gray-500 font-mono">Digite 'help'</span>
+        </div>
+        
+        <div id="terminal-output" class="p-4 h-72 font-mono text-xs text-emerald-400 overflow-y-auto space-y-2 selection:bg-emerald-900 selection:text-white">
+          <div>GEN-3 Interactive Shell initialized. Type <span class="text-white underline">help</span> for a list of available commands.</div>
+        </div>
+
+        <div class="p-3 bg-gray-950 border-t border-gray-900 flex items-center gap-2 font-mono text-xs">
+          <span class="text-emerald-500">user@gen3-pc:~$</span>
+          <input type="text" id="terminal-input" onkeydown="handleTerminalCommand(event)" placeholder="Digite um comando (ex: help, list, desenvolvedores, quiz)..." class="flex-1 bg-transparent border-none text-gray-100 focus:outline-none placeholder-gray-700">
+        </div>
+      </div>
+
+      <!-- Card Quiz Interativo -->
+      <div class="bg-retro-card p-6 rounded-xl border border-gray-800 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <h4 class="font-bold text-white flex items-center gap-2">
+              <i data-lucide="help-circle" class="text-amber-400"></i> Desafio de Conhecimento
+            </h4>
+            <span id="quiz-score" class="text-xs font-mono bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded">Score: 0/5</span>
+          </div>
+          <p id="quiz-question" class="text-sm text-gray-300 font-medium mb-4">Qual marco introduziu o conceito de Classes e Herança no Software em 1967?</p>
+          
+          <div id="quiz-options" class="space-y-2">
+            <!-- Opções do Quiz via JS -->
+          </div>
+        </div>
+
+        <button id="quiz-next-btn" onclick="nextQuestion()" class="mt-6 w-full py-2 bg-gray-800 hover:bg-gray-700 text-xs font-semibold text-gray-200 rounded-lg transition border border-gray-700">
+          Próxima Pergunta
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Rodapé do Site -->
+  <footer class="border-t border-gray-800 bg-retro-card/50 py-8 px-4 text-center text-xs text-gray-500">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        <p class="font-semibold text-gray-300 mb-1">Terceira Geração da Computação & Transição Tecnológica</p>
+        <p class="text-gray-400">
+          Desenvolvido por: 
+          <span class="text-blue-400 font-medium">Danilo Grigolli</span>, 
+          <span class="text-indigo-400 font-medium">Monique Sanches</span>, 
+          <span class="text-purple-400 font-medium">Ana Beatriz Silva</span>, 
+          <span class="text-emerald-400 font-medium">Ana Moya</span> e 
+          <span class="text-pink-400 font-medium">Verônica Brisola</span>
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-3 text-gray-400 font-mono text-[11px]">
+        <span>CIs & Transistores</span>
+        <span>•</span>
+        <span>Sistemas Operacionais</span>
+        <span>•</span>
+        <span>Revolução do PC</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal de Detalhes Históricos -->
+  <div id="modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-retro-card border border-gray-700 rounded-2xl max-w-2xl w-full p-6 relative max-h-[90vh] overflow-y-auto shadow-2xl">
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1 rounded-lg bg-gray-800 hover:bg-gray-700 transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      
+      <div class="flex items-center space-x-3 mb-4">
+        <span id="modal-year" class="px-2.5 py-1 text-xs font-mono font-bold bg-blue-600 text-white rounded-md">1971</span>
+        <span id="modal-category" class="px-2.5 py-1 text-xs font-mono bg-gray-800 text-gray-300 rounded-md border border-gray-700">Hardware</span>
+      </div>
+
+      <h3 id="modal-title" class="text-2xl font-bold text-white mb-2">Processador Intel 4004</h3>
+      <p id="modal-summary" class="text-sm text-gray-300 mb-6 italic border-l-2 border-blue-500 pl-3 py-1 bg-blue-950/20">O primeiro microprocessador comercial em um único chip de silício do mundo.</p>
+
+      <div class="space-y-4 text-xs sm:text-sm text-gray-300">
+        <div>
+          <h4 class="font-bold text-blue-400 text-xs uppercase tracking-wider mb-1">Contexto Histórico</h4>
+          <p id="modal-context" class="leading-relaxed text-gray-400"></p>
+        </div>
+        
+        <div>
+          <h4 class="font-bold text-emerald-400 text-xs uppercase tracking-wider mb-1">Impacto no Mundo Moderno</h4>
+          <p id="modal-impact" class="leading-relaxed text-gray-400"></p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          <div class="bg-gray-900/80 p-3 rounded-lg border border-gray-800">
+            <h5 class="font-bold text-amber-400 text-xs mb-1">Fato Curioso</h5>
+            <p id="modal-curiosity" class="text-xs text-gray-400"></p>
+          </div>
+          <div class="bg-gray-900/80 p-3 rounded-lg border border-gray-800">
+            <h5 class="font-bold text-purple-400 text-xs mb-1">Especificações Técnicas</h5>
+            <p id="modal-specs" class="text-xs text-gray-400 font-mono"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script Principal -->
+  <script src="main.js"></script>
+</body>
+</html>
